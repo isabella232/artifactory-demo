@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  artifactory: circleci/artifactory@dev:eddie-local #circleci/artifactory@0.0.3
+  artifactory: circleci/artifactory@0.0.3
   shellcheck: circleci/shellcheck@1.1.0
 
 workflows:
@@ -12,8 +12,9 @@ workflows:
           repository: docker
           build-name: demo-ci-build-image
           docker-tag: orbdemos-docker.jfrog.io/ci-build-image:latest
-          dependency-steps:
-            - run: jfrog rt bad demo-ci-build-image ${CIRCLE_BUILD_NUM} demo.bash
+          # requires 0.0.4
+          #dependency-steps:
+          #  - run: jfrog rt bad demo-ci-build-image ${CIRCLE_BUILD_NUM} demo.bash
       - consume_it:
           requires:
             - 'Standard Docker Build & Publish'
