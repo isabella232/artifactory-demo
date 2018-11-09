@@ -26,13 +26,13 @@ workflows:
             - run: echo ${DOCKERTAG}
             - restore_cache:
                 keys:
-                  - demo-mvn-V2-{{ checksum "pom.xml" }}           
+                  - demo-mvn-V2-{{ checksum "jib/pom.xml" }}           
             - run: cd jib && ./mvnw compile jib:exportDockerContext -s .mvn/wrapper/settings.xml
             - run: docker build -t ${DOCKERTAG} jib/target/jib-docker-context
             - save_cache:
                 paths:
                   - ~/.m2
-                key: blueskygreenbuilds-mvn-V2-{{ checksum "pom.xml" }}
+                key: blueskygreenbuilds-mvn-V2-{{ checksum "jib/pom.xml" }}
 
 
 jobs:
