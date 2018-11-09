@@ -13,8 +13,9 @@ workflows:
           docker-tag: orbdemos-docker.jfrog.io/ci-build-image:latest
       - consume_it:
           requires:
-            - artifactory/docker-publish
+            - 'Standard Docker Build & Publish'
   docker_with_jib:
+    jobs:
       - artifactory/docker-publish:
           name: Docker Publish with Jib
           docker-registry: orbdemos-docker.jfrog.io
@@ -31,8 +32,9 @@ jobs:
   consume_it:
     docker:
       - image: orbdemos-docker.jfrog.io/ci-build-image:latest
-        username: circleci
-        password: ${ARTIFACTORY_API_KEY}
+        auth:
+          username: circleci
+          password: ${ARTIFACTORY_API_KEY}
     steps:
       - run: ls
       - run: bash demo.bash
