@@ -14,7 +14,7 @@ workflows:
       - consume_it:
           requires:
             - 'Standard Docker Build & Publish'
-  docker_with_jib:
+  advanced_docker:
     jobs:
       - artifactory/docker-publish:
           name: Docker Publish with Jib
@@ -24,8 +24,15 @@ workflows:
           docker-tag: orbdemos-docker.jfrog.io/spring-boot:1.0-${CIRCLE_BUILD_NUM}
           docker-steps:
             - run: echo ${DOCKERTAG}
+            - restore_cache:
+                keys:
+                  - demo-mvn-V2-{{ checksum "pom.xml" }}           
             - run: cd jib && ./mvnw compile jib:exportDockerContext -s .mvn/wrapper/settings.xml
             - run: docker build -t ${DOCKERTAG} jib/target/jib-docker-context
+            - save_cache:
+                paths:
+                  - ~/.m2
+                key: blueskygreenbuilds-mvn-V2-{{ checksum "pom.xml" }}
 
 
 jobs:
