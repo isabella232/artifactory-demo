@@ -23,12 +23,10 @@ workflows:
                 paths:
                   - ~/.m2
                 key: demo-mvn-V2-{{ checksum "jib/pom.xml" }}
-
       - approval:
           type: approval
           requires: 
             - "Docker Publish with Google Jib"
-
       - hello/hello-build:
           name: Mock Deployment
           requires: 
