@@ -13,5 +13,5 @@ workflows:
           docker-tag: orbdemos-docker.jfrog.io/hello-world-image:1.0-${CIRCLE_BUILD_NUM}
           post-steps:
             - slack/notify:
-                message: "${CIRCLE_USERNAME} just published ${DOCKER_TAG} from
+                message: "${CIRCLE_USERNAME} just published ${DOCKERTAG} from
                  https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}"
