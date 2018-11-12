@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo "This script confirms we are using the published image."
+echo "This script exists in our published image."
