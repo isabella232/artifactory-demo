@@ -21,7 +21,6 @@ jobs:
         auth:
           username: circleci
           password: ${ARTIFACTORY_API_KEY}
-     steps:
+    steps:
       - run: pwd && ls #just confirm file is not checked out, but part of image
       - run: demo
-      
