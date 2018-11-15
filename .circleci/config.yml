@@ -11,7 +11,9 @@ workflows:
           repository: docker
           docker-tag: orbdemos-docker.jfrog.io/ci-build-image:latest
           dependency-steps:
-            - run: jfrog rt dl local-generic/demo.bash --build-name=${CIRCLE_PROJECT_REPONAME} --build-number=${CIRCLE_BUILD_NUM}
+            - run: jfrog rt dl local-generic/demo.bash\
+                   --build-name=${CIRCLE_PROJECT_REPONAME}\
+                   --build-number=${CIRCLE_BUILD_NUM}
       - consume_it:
           requires:
             - 'Docker Build & Publish'
