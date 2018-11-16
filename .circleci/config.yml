@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   artifactory: circleci/artifactory@0.0.4
   hello:       circleci/hello-build@0.0.7
-
+  stats:       eddiewebb/stats@volatile
 workflows:
   custom_docker:
     jobs:
@@ -13,7 +13,7 @@ workflows:
           build-name: demo-spring-boot-jib
           docker-tag: orbdemos-docker.jfrog.io/spring-boot:1.0-${CIRCLE_BUILD_NUM}
           docker-steps:
-            - run: echo ${DOCKERTAG}
+            - stats/start_stats
             - restore_cache:
                 keys:
                   - demo-mvn-V2-{{ checksum "jib/pom.xml" }}           
@@ -23,6 +23,7 @@ workflows:
                 paths:
                   - ~/.m2
                 key: demo-mvn-V2-{{ checksum "jib/pom.xml" }}
+            - stats/expose_stats
       - approval:
           type: approval
           requires: 
@@ -31,3 +32,4 @@ workflows:
           name: Mock Deployment
           requires: 
             - approval
+
